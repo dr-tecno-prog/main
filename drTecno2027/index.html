@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة دكتور تكنو | م. خالد شعبان</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="منصة دكتور تكنو | م. خالد شعبان">
+<meta property="og:description" content="بوابتك الاحترافية لمادة البرمجة والذكاء الاصطناعي بكالوريا 2027 للمرحلة الثانوية. ابدأ رحلتك التكنولوجية من الصفر!">
+<meta property="og:image" content="https://dr-tecno-prog.netlify.app/pic/og-share.jpg">
+<meta property="og:url" content="https://dr-tecno-prog.netlify.app">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="منصة دكتور تكنو التعليمية | م. خالد شعبان">
+<meta name="twitter:description" content="بوابتك الاحترافية لعلوم البرمجة والذكاء الاصطناعي للمرحلة الثانوية.">
+<meta name="twitter:image" content="https://dr-tecno-prog.netlify.app/pic/og-share.jpg">
+    <style>
+        :root {
+            --primary-color: #0d6efd; /* أزرق تقني */
+            --secondary-color: #6f42c1; /* بنفسجي ذكاء اصطناعي */
+            --dark-bg: #0f172a; /* خلفية داكنة عصرية */
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #ffffff;
+            --accent-color: #00f2fe; /* لون نيون للتفاعل */
+            --whatsapp-color: #25d366; /* لون الواتساب الرسمي */
+            --neon-pink: #ff007f; /* لون تشويقي متوهج */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- الهيدر وبار التنقل --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 24px;
+            font-weight: 900;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-light);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .btn-login {
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            color: var(--dark-bg) !important;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        /* شاشات اللاب توب المتوسطة والصغيرة والموبايل للتنقل */
+        @media (max-width: 992px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+            .nav-links a {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+
+        /* --- قسم البانر الرئيسي (الكافر) --- */
+        .hero-section {
+            margin-top: 75px;
+            min-height: 400px;
+            height: auto;
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.9)), url('pic/cover.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-content p {
+            font-size: clamp(16px, 3vw, 22px);
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 25px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-contact-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(37, 211, 102, 0.2);
+            border: 2px solid var(--whatsapp-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: clamp(14px, 2vw, 18px);
+            transition: all 0.3s;
+        }
+
+        .hero-contact-badge:hover {
+            background: var(--whatsapp-color);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+        }
+
+        @media (max-width: 992px) {
+            .hero-section { margin-top: 110px; }
+        }
+        @media (max-width: 576px) {
+            .hero-section { margin-top: 135px; }
+        }
+
+        /* --- قسم الترحيب والتعريف --- */
+        .welcome-section {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: var(--text-light);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: 1fr 2.5fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-section {
+                grid-template-columns: 1fr;
+                margin: 30px 20px;
+                padding: 25px;
+                gap: 20px;
+            }
+        }
+
+        .profile-box {
+            text-align: center;
+            border-left: 2px solid #e2e8f0;
+            padding-left: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-box {
+                border-left: none;
+                border-bottom: 2px solid #e2e8f0;
+                padding-left: 0;
+                padding-bottom: 20px;
+            }
+        }
+
+        .profile-img {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+        }
+
+        .profile-box h3 {
+            font-size: 24px;
+            color: var(--dark-bg);
+            font-weight: 900;
+        }
+
+        .profile-title {
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        .profile-exp {
+            background: #f1f5f9;
+            color: var(--text-dark);
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 700;
+            border: 1px dashed var(--secondary-color);
+        }
+
+        .welcome-text h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: clamp(20px, 4vw, 26px);
+        }
+
+        .welcome-text p {
+            line-height: 1.8;
+            color: #475569;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .features-list {
+            margin-top: 15px;
+            list-style: none;
+        }
+
+        .features-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .features-list li i {
+            color: #10b981;
+            margin-top: 5px;
+        }
+
+        /* --- قسم الإعلان التشويقي المتطور والمنبثق --- */
+        .teaser-section {
+            max-width: 1100px;
+            margin: 0 auto 30px auto;
+            padding: 0 20px;
+            min-height: 120px;
+            transition: all 0.5s ease;
+        }
+
+        .teaser-card {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e1b4b 50%, var(--secondary-color) 100%);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 0, 127, 0.3);
+            box-shadow: 0 0 25px rgba(111, 66, 193, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            animation: borderPulse 3s infinite alternate;
+            transition: all 0.4s ease;
+        }
+
+        .teaser-close-btn {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 0, 127, 0.4);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .teaser-close-btn:hover {
+            background: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+            transform: rotate(90deg);
+        }
+
+        /* الطبقة الخلفية المعتمة للمودال */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-overlay .teaser-card {
+            max-width: 750px;
+            width: 100%;
+            box-shadow: 0 15px 50px rgba(255, 0, 127, 0.4);
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 45px 35px;
+        }
+
+        .modal-overlay.active .teaser-card {
+            transform: scale(1);
+        }
+
+        .modal-overlay .teaser-close-btn {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .teaser-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .modal-overlay .teaser-card {
+                padding: 40px 20px 25px 20px;
+            }
+        }
+
+        .teaser-badge {
+            background: var(--neon-pink);
+            color: white;
+            font-size: 12px;
+            font-weight: 900;
+            padding: 5px 15px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px var(--neon-pink);
+            animation: textPulse 1.5s infinite alternate;
+        }
+
+        .teaser-info h3 {
+            color: white;
+            font-size: clamp(20px, 4vw, 26px);
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .teaser-info h3 span {
+            color: var(--accent-color);
+        }
+
+        .teaser-info p {
+            color: #cbd5e1;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .teaser-action-btn {
+            background: linear-gradient(45deg, var(--neon-pink), #ff4b2b);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(255, 0, 127, 0.4);
+            transition: all 0.3s ease;
+            white-space: normal;
+            text-align: center;
+        }
+
+        .teaser-action-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px var(--neon-pink);
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+            color: var(--dark-bg);
+        }
+
+        /* --- قسم الإعلان الثاني المضاف حديثاً (كورسات الفئات العمرية) --- */
+        .general-courses-banner {
+            max-width: 1100px;
+            margin: 0 auto 50px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .general-courses-card {
+            background: linear-gradient(95deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(13, 110, 253, 0.3);
+            border-radius: 15px;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .general-courses-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .general-courses-info i {
+            font-size: 30px;
+            color: var(--accent-color);
+        }
+
+        .general-courses-info h4 {
+            font-size: clamp(16px, 3vw, 18px);
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .general-courses-info p {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .general-courses-btn {
+            background: transparent;
+            border: 2px solid var(--whatsapp-color);
+            color: var(--whatsapp-color);
+            padding: 10px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .general-courses-btn:hover {
+            background: var(--whatsapp-color);
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .general-courses-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .general-courses-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .general-courses-btn {
+                white-space: normal;
+            }
+        }
+
+        @keyframes borderPulse {
+            0% { box-shadow: 0 0 20px rgba(111, 66, 193, 0.3); border-color: rgba(255, 0, 127, 0.3); }
+            100% { box-shadow: 0 0 35px rgba(255, 0, 127, 0.5); border-color: var(--accent-color); }
+        }
+        @keyframes textPulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            100% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 15px var(--neon-pink); }
+        }
+
+        /* --- أزرار أقسام المنصة السريعة --- */
+        .grid-sections {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card-btn {
+            background: var(--text-light);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+
+        .card-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(111, 66, 193, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .card-btn i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            --webkit-background-clip: text;
+            --webkit-text-fill-color: transparent;
+        }
+
+        .card-btn h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card-btn p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* --- قسم تضمين فورم جوجل الجذاب --- */
+        .google-form-section {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .form-wrapper {
+            background: var(--text-light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+        }
+
+        .form-header {
+            background: linear-gradient(45deg, var(--dark-bg), var(--secondary-color));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .form-header h3 {
+            font-size: clamp(20px, 4vw, 24px);
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            font-size: 15px;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* تعديل الارتفاع في الموبايل ليناسب شاشات العرض الصغيرة */
+        @media (max-width: 576px) {
+            .iframe-container {
+                height: 800px;
+            }
+        }
+
+        /* --- بنر مجموعة الفيس بوك --- */
+        .fb-banner {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .fb-box {
+            background: linear-gradient(135deg, #1877f2, #0d6efd);
+            border-radius: 20px;
+            padding: 40px 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(24, 119, 242, 0.3);
+        }
+
+        .fb-box h3 {
+            font-size: clamp(20px, 4vw, 24px);
+            margin-bottom: 15px;
+        }
+
+        .fb-box p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .fb-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #1877f2;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .fb-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* شريط التواصل السريع العائم المخصص للواتساب والجوال */
+        .sticky-contact-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sticky-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .sticky-btn.wa { background-color: var(--whatsapp-color); }
+        .sticky-btn.phone { background-color: var(--primary-color); }
+        .sticky-btn:hover { transform: scale(1.1); }
+
+        /* --- نافذة التنبيه المخصصة --- */
+        .custom-alert {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(111, 66, 193, 0.4);
+            z-index: 20000;
+            transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            justify-content: center;
+        }
+
+        .custom-alert.show {
+            top: 100px;
+        }
+
+        /* --- الفوتر --- */
+        footer {
+            background: var(--dark-bg);
+            color: #cbd5e1;
+            padding: 40px 20px 20px 20px;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            text-align: center;
+        }
+
+        .footer-whatsapp-display {
+            font-size: clamp(18px, 4vw, 22px);
+            font-weight: 900;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .footer-whatsapp-display:hover {
+            color: var(--whatsapp-color);
+            border-color: var(--whatsapp-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: #1e293b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 22px;
+            transition: all 0.3s;
+            border: 1px solid #334155;
+        }
+
+        .social-icons a.fb-ico:hover { background-color: #1877f2; color: white; }
+        .social-icons a.wa-ico:hover { background-color: var(--whatsapp-color); color: white; }
+        .social-icons a.phone-ico:hover { background-color: var(--primary-color); color: white; }
+
+        .footer-credits {
+            font-size: 14px;
+            border-top: 1px solid #334155;
+            width: 100%;
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- حاوية المودال (الخلفية المعتمة للبوب آب) -->
+    <div id="modalOverlay" class="modal-overlay"></div>
+
+    <div class="sticky-contact-bar">
+        <a href="https://wa.me/201098847174" target="_blank" class="sticky-btn wa" title="تواصل عبر الواتساب"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:01098847174" class="sticky-btn phone" title="اتصل بنا"><i class="fas fa-phone-alt"></i></a>
+    </div>
+
+    <div id="underConstructionAlert" class="custom-alert">
+        <i class="fas fa-magic"></i>
+        <span>عذراً، هذا القسم متاح قريباً في أقرب وقت ممكن!</span>
+    </div>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">دكتور <span>تكنو</span></a>
+            <ul class="nav-links">
+                <li><a href="#" class="active">الرئيسية</a></li>
+                <li><a href="topics.html" class="under-construction">موضوعات برمجية</a></li>
+                <li><a href="library.html" class="under-construction">المكتبة العامة</a></li>
+                <li><a href="news.html" class="under-construction">الأخبار والاشعارات</a></li>
+                <li><a href="#registration-section" style="color: var(--accent-color);">سجل الآن</a></li>
+                <li><a href="login.html" class="btn-login under-construction"><i class="fas fa-sign-in-alt"></i> دخول الطلاب</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>منصة دكتور تكنو التعليمية</h1>
+            <p>بوابتك الاحترافية لعلوم البرمجة والذكاء الاصطناعي للمرحلة الثانوية</p>
+            <a href="https://wa.me/201098847174" target="_blank" class="hero-contact-badge">
+                <i class="fab fa-whatsapp"></i> للاستفسار والاشتراك الفوري: 01098847174
+            </a>
+        </div>
+    </section>
+
+    <section class="welcome-section">
+        <div class="profile-box">
+            <img src="pic/profile.jpg" alt="م. خالد شعبان" class="profile-img">
+            <h3>م. خالد شعبان</h3>
+            <p class="profile-title">استشاري تكنولوجي<br>أستاذ البرمجة والذكاء الاصطناعي</p>
+            <span class="profile-exp">خبرة أكثر من 17 سنة</span>
+        </div>
+        <div class="welcome-text">
+            <h2>أهلاً بكم في مجتمع "رواد البرمجة والذكاء الاصطناعي"</h2>
+            <p>هذه البيئة التعليمية التفاعلية الرسمية التابعة لـ <strong>منصة [دكتور تكنو]</strong>، والمخصصة بالكامل لدعم ومساندة طلاب البكالوريا (الصف الأول والثاني الثانوي) لعام 2027 في مادة البرمجة والذكاء الاصطناعي، تحت إشراف وتوجيه م. خالد شعبان، استشاري تكنولوجي وخبرة ممتدة لأكثر من 17 عاماً في مجال البرمجة والتدريس التكنولوجي والتدريب التقني.</p>
+            
+            <strong>ماذا ستقدم لك المنصة?</strong>
+            <ul class="features-list">
+                <li><i class="fas fa-check-circle"></i> <span><strong>شروحات مبسطة:</strong> تفكيك عقد المنهج الدراسي وتحويل الأكواد المعقدة إلى تطبيق عملي ممتع.</span></li>
+                <li><i class="fas fa-check-circle"></i> <span><strong>تطبيقات الذكاء الاصطناعي:</strong> لن نتعلم للنظري فقط، بل سنفهم كيف تدار تقنيات الـ AI الحديثة.</span></li>
+                <li><i class="fas fa-check-circle"></i> <span><strong>مراجعات مستمرة واختبارات:</strong> بنك أسئلة متجدد ونماذج امتحانات تحاكي النظام الحديث لضمان التفوق.</span></li>
+                <li><i class="fas fa-check-circle"></i> <span><strong>بث مباشر دوري (Live):</strong> للإجابة عن أسئلتكم واستفساراتكم البرمجية بشكل مباشر.</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- القسم الحاضن لإعلان الكورس التأسيسي الرئيسي -->
+    <section class="teaser-section" id="teaserContainer">
+        <div class="teaser-card" id="teaserCard">
+            <button class="teaser-close-btn" id="closeTeaserBtn" title="إغلاق الإعلان والعودة للمنصة">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="teaser-info">
+                <span class="teaser-badge"><i class="fas fa-bullhorn"></i> قريباً جداً</span>
+                <h3>انطلاق <span>الكورس التأسيسي</span> الأقوى في البرمجة والـ AI</h3>
+                <p>مخصص لطلبة البكالوريا المصرية (الصف الأول والثاني الثانوي) - ابدأ رحلتك التكنولوجية من الصفر!</p>
+            </div>
+            <div>
+                <a href="#registration-section" class="teaser-action-btn" id="teaserActionBtn">
+                    سجل اسمك في قائمة الانتظار <i class="fas fa-rocket"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- الإعلان العام: كورسات البرمجة لكافة الفئات العمرية أونلاين (تم نقله هنا ليصبح تحت التأسيسي) -->
+    <div class="general-courses-banner">
+        <div class="general-courses-card">
+            <div class="general-courses-info">
+                <i class="fas fa-graduation-cap"></i>
+                <div>
+                    <h4>كورسات برمجة مخصصة لكافة الفئات العمرية (أونلاين)</h4>
+                    <p>تعلم البرمجة من الصفر وبناء مستقبلك الرقمي مع خطط تدريبية مرنة تناسب الجميع.</p>
+                </div>
+            </div>
+            <div>
+                <a href="https://wa.me/201098847174?text=%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%A8%D8%AE%D8%B5%D9%85%D8%B5%20%D9%83%D9%84%D9%88%D8%B1%D8%B3%D8%A7%D8%AA%20%D8%A7%D9%84%D8%A8%D8%B1%D9%85%D8%AC%D8%A9%20%D8%A3%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86" target="_blank" class="general-courses-btn">
+                    <i class="fab fa-whatsapp"></i> استفسر الآن عبر واتساب
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="grid-sections">
+        <a href="student-dash.html" class="card-btn under-construction">
+            <i class="fas fa-user-graduate"></i>
+            <h4>بوابة الطالب الخاص</h4>
+            <p>عرض المحتوى، التسجيلات، الاختبارات والدرجات الخاصة بك.</p>
+        </a>
+        <a href="quizzes.html" class="card-btn under-construction">
+            <i class="fas fa-laptop-code"></i>
+            <h4>الاختبارات الإلكترونية</h4>
+            <p>تحدّى نفسك واختبر مهاراتك البرمجية مع تصحيح فوري للدرجات.</p>
+        </a>
+        <a href="library.html" class="card-btn under-construction">
+            <i class="fas fa-book-reader"></i>
+            <h4>المكتبة الرقمية</h4>
+            <p>حمل أقوى المذكرات، الكتب الخارجية وملفات الـ PDF التعليمية.</p>
+        </a>
+    </section>
+
+    <section class="google-form-section" id="registration-section">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <h3>استمارة الحجز والتسجيل المبكر</h3>
+                <p>قم بملء البيانات التالية لتأمين مقعدك بالمنصة والانضمام إلى مجموعات الشرح</p>
+            </div>
+            <div class="iframe-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeM-XQOffxqZ1Ha7rBRwut6L0VbQuJOODqGoNbiOOWZIFTzwQ/viewform?embedded=true">
+                    جاري تحميل الاستمارة...
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="fb-banner">
+        <div class="fb-box">
+            <h3>انضم الآن لمجموعتنا الرسمية على فيسبوك</h3>
+            <p>رواد البرمجة والذكاء الاصطناعي بكالوريا 2027 | منصة دكتور تكنو م. خالد شعبان</p>
+            <a href="https://www.facebook.com/groups/1564587198372073" target="_blank" class="fb-btn">
+                <i class="fab fa-facebook-f"></i> انضم للمجتمع الآن
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <a href="https://wa.me/201098847174" target="_blank" class="footer-whatsapp-display">
+                <i class="fab fa-whatsapp" style="color: var(--whatsapp-color);"></i> واتساب مباشر: 01098847174
+            </a>
+
+            <div class="social-icons">
+                <a href="https://www.facebook.com/groups/1564587198372073" target="_blank" class="fb-ico" title="مجموعة الفيسبوك"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/201098847174" target="_blank" class="wa-ico" title="تواصل واتساب"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:01098847174" class="phone-ico" title="اتصال هاتفي"><i class="fas fa-phone-alt"></i></a>
+            </div>
+            <div class="footer-credits">
+                <p>جميع الحقوق محفوظة © ٢٠٢٦ لمنصة دكتور تكنو | م. خالد شعبان</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- أكواد تنبيه الأقسام تحت الإنشاء ---
+            const constructionLinks = document.querySelectorAll('.under-construction');
+            const alertBox = document.getElementById('underConstructionAlert');
+
+            constructionLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    alertBox.classList.add('show');
+                    setTimeout(() => {
+                        alertBox.classList.remove('show');
+                    }, 3500);
+                });
+            });
+
+            // --- منطق الإعلان المنبثق التفاعلي الذكي ---
+            const modalOverlay = document.getElementById('modalOverlay');
+            const teaserCard = document.getElementById('teaserCard');
+            const teaserContainer = document.getElementById('teaserContainer');
+            const closeTeaserBtn = document.getElementById('closeTeaserBtn');
+            const teaserActionBtn = document.getElementById('teaserActionBtn');
+
+            function showTeaserAsPopup() {
+                modalOverlay.appendChild(teaserCard); 
+                setTimeout(() => {
+                    modalOverlay.classList.add('active');
+                }, 100);
+            }
+
+            function returnTeaserToNormal() {
+                modalOverlay.classList.remove('active');
+                setTimeout(() => {
+                    teaserContainer.appendChild(teaserCard);
+                }, 500);
+            }
+
+            showTeaserAsPopup();
+
+            closeTeaserBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                returnTeaserToNormal();
+            });
+
+            teaserActionBtn.addEventListener('click', () => {
+                returnTeaserToNormal();
+            });
+        });
+    </script>
+</body>
+</html>
