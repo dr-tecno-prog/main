@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكتبة الرقمية والمختبر التفاعلي | منصة دكتور تكنو</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- تضمين مكتبات تشغيل بايثون ومحرر الأكواد (أدوات مفتوحة المصدر) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.14.0/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython_stdlib.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6f42c1;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #ffffff;
+            --accent-color: #00f2fe;
+            --whatsapp-color: #25d366;
+            --neon-pink: #ff007f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            padding-top: 80px;
+        }
+
+        /* --- الهيدر وبار التنقل --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 22px;
+            font-weight: 900;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .logo span { color: var(--accent-color); }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-light);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .btn-login {
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            color: var(--dark-bg) !important;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        @media (max-width: 992px) {
+            .nav-container { flex-direction: column; gap: 10px; padding: 10px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 8px; }
+            body { padding-top: 130px; }
+        }
+
+        /* --- عنوان الصفحة --- */
+        .page-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e1b4b 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .page-header h1 { font-size: 28px; font-weight: 900; margin-bottom: 10px; }
+        .page-header h1 span { color: var(--accent-color); }
+        .page-header p { color: #cbd5e1; font-size: 15px; }
+
+        /* --- التقسيم الرئيسي (المستودع والمحرر) --- */
+        .workspace-container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 992px) {
+            .workspace-container { grid-template-columns: 1fr; }
+        }
+
+        /* --- صندوق مستودع الأكواد --- */
+        .codes-repository {
+            background: white;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            height: 680px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .repo-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .tab-btn.active[data-lang="js"] { background: #f7df1e; color: #000; }
+        .tab-btn.active[data-lang="py"] { background: #3776ab; color: #fff; }
+
+        .snippets-list {
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-left: 5px;
+        }
+
+        .snippet-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .snippet-item:hover {
+            border-color: var(--primary-color);
+            background: #f0f7ff;
+        }
+
+        .snippet-item h4 { font-size: 14px; font-weight: 700; color: var(--dark-bg); margin-bottom: 4px; }
+        .snippet-item p { font-size: 12px; color: #64748b; }
+
+        /* --- صندوق المحرر والمخرجات --- */
+        .editor-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .editor-card {
+            background: white;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .editor-control-bar {
+            background: #1e293b;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .current-lang-badge {
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .run-btn {
+            background: linear-gradient(45deg, var(--whatsapp-color), #1fad51);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .run-btn:hover { transform: scale(1.03); }
+
+        /* مساحة المحرر الفعلي من Ace Editor */
+        #codeEditor {
+            width: 100%;
+            height: 380px;
+            font-size: 15px;
+        }
+
+        /* نافذة المخرجات والكونسول */
+        .output-card {
+            background: #0f172a;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        .output-header {
+            background: #1e293b;
+            padding: 10px 20px;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 700;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #outputConsole {
+            padding: 20px;
+            height: 160px;
+            overflow-y: auto;
+            color: #00f2fe;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            direction: ltr;
+            text-align: left;
+            background: #090d16;
+        }
+
+        .error-text { color: #ff007f !important; }
+
+        /* الفوتر */
+        footer {
+            background: var(--dark-bg);
+            color: #cbd5e1;
+            padding: 30px 20px 20px 20px;
+            border-top: 4px solid var(--primary-color);
+            margin-top: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body onload="brython()">
+
+    <!-- الهيدر متضمناً اللوجو الخاص بك -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="pic/logo.jpg" alt="شعار دكتور تكنو">
+                منصة دكتور <span>تكنو</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="topics.html">موضوعات برمجية</a></li>
+                <li><a href="#" class="active">المكتبة العامة</a></li>
+                <li><a href="news.html">الأخبار والاشعارات</a></li>
+                <li><a href="index.html#registration-section" style="color: var(--accent-color);">سجل الآن</a></li>
+                <li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> دخول الطلاب</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- عنوان الصفحة والتعريف بمختبر الأكواد -->
+    <section class="page-header">
+        <h1>المختبر البرمجي والمكتبة المفتوحة</h1>
+        <p>اختر كوداً جاهزاً من المكتبة، واكتشف آلية عمله، أو اكتب كودك الخاص وجربه فوراً داخل المتصفح!</p>
+    </section>
+
+    <!-- بيئة العمل التفاعلية -->
+    <main class="workspace-container">
+        
+        <!-- مستودع الأكواد المفتوح والمكتوب بأسلوب جذاب -->
+        <aside class="codes-repository">
+            <div class="repo-tabs">
+                <button class="tab-btn active" data-lang="js"><i class="fab fa-js-square"></i> JavaScript</button>
+                <button class="tab-btn" data-lang="py"><i class="fab fa-python"></i> Python</button>
+            </div>
+            <div class="snippets-list" id="snippetsContainer">
+                <!-- يتم بناؤها ديناميكياً بناءً على اللغة المختارة -->
+            </div>
+        </aside>
+
+        <!-- محرر الأكواد الذكي ونافذة التشغيل -->
+        <section class="editor-section">
+            <div class="editor-card">
+                <div class="editor-control-bar">
+                    <div class="current-lang-badge" id="langBadge">
+                        <i class="fab fa-js-square" style="color:#f7df1e;"></i> بيئة عمل JavaScript
+                    </div>
+                    <button class="run-btn" id="runCodeBtn">
+                        <i class="fas fa-play"></i> تشغيل الكود
+                    </button>
+                </div>
+                <!-- الحاوية المخصصة لمحرر Ace -->
+                <div id="codeEditor"></div>
+            </div>
+
+            <!-- شاشة عرض المخرجات والنتائج -->
+            <div class="output-card">
+                <div class="output-header">
+                    <i class="fas fa-terminal"></i> شاشة المخرجات (Console Output)
+                </div>
+                <div id="outputConsole">جاري تهيئة بيئة العمل التفاعلية...</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © ٢٠٢٦ لمنصة دكتور تكنو | م. خالد شعبان</p>
+    </footer>
+
+    <!-- المخزن البرمجي للأكواد الجاهزة للغتين ومستندات التشغيل -->
+    <script>
+        // الأكواد البرمجية المفتوحة المصدر المضمنة بالمكتبة للغتين
+        const snippetsData = {
+            js: [
+                {
+                    title: "طباعة ترحيبية أساسية",
+                    desc: "استخدام الأوامر الأساسية لطباعة نص تفاعلي.",
+                    code: `// كود ترحيبي بسيط في الجافاسكريبت\nconsole.log("أهلاً بكم في منصة دكتور تكنو!");\nconsole.log("تم تشغيل أول كود لك بنجاح 🚀");`
+                },
+                {
+                    title: "حساب مضروب العدد (Factorial)",
+                    desc: "خوارزمية حسابية باستخدام الدوال التكرارية.",
+                    code: `function calculateFactorial(num) {\n    if (num === 0 || num === 1) return 1;\n    return num * calculateFactorial(num - 1);\n}\n\nlet number = 5;\nconsole.log("مضروب العدد " + number + " هو: " + calculateFactorial(number));`
+                },
+                {
+                    title: "التحقق من الأعداد الزوجية والفردية",
+                    desc: "استخدام الشروط المنطقية المتقدمة لفرز الأرقام.",
+                    code: `let numbers = [12, 5, 8, 21, 14, 7];\n\nnumbers.forEach(num => {\n    if(num % 2 === 0) {\n        console.log("العدد " + num + " هو: عدد زوجي ✅");\n    } else {\n        console.log("العدد " + num + " هو: عدد فردي ❌");\n    }\n});`
+                }
+            ],
+            py: [
+                {
+                    title: "أمر الطباعة والمتغيرات",
+                    desc: "التعرف على كيفية تخريج النصوص والبيانات ببايثون.",
+                    code: `# كود ترحيبي بلغة بايثون\nwelcome_msg = "مرحباً بكم في مختبر الذكاء الاصطناعي 🧠"\nprint(welcome_msg)\nprint("بايثون لغة سهلة وقوية جداً!")`
+                },
+                {
+                    title: "سلسلة فيبوناتشي (Fibonacci Series)",
+                    desc: "توليد النمط الرياضي الشهير المعتمد بالخوارزميات.",
+                    code: `# توليد أرقام فيبوناتشي حتى 10 حدود\ndef fibonacci(n):\n    a, b = 0, 1\n    for _ in range(n):\n        print(a, end="  ")\n        a, b = b, a + b\n\nprint("سلسلة فيبوناتشي المكونة من 10 حدود:")\nfibonacci(10)`
+                },
+                {
+                    title: "مصفوفة البحث وفلترة القوائم",
+                    desc: "طريقة ذكية لاستخراج عناصر معينة وتصفيتها.",
+                    code: `# البحث وتصفية درجات الطلاب الناجحين\ngrades = [45, 88, 92, 35, 74, 60, 51]\nsuccessful_grades = [g for g in grades if g >= 50]\n\nprint("قائمة جميع الدرجات:", grades)\nprint("الدرجات الناجحة فقط (>= 50):", successful_grades)`
+                }
+            ]
+        };
+
+        let currentLanguage = 'js';
+        let editor;
+
+        // تهيئة محرر الأكواد المفتوح Ace Editor عند بدء التشغيل
+        document.addEventListener('DOMContentLoaded', () => {
+            editor = ace.edit("codeEditor");
+            editor.setTheme("ace/theme/one_dark"); // المظهر الداكن الاحترافي
+            editor.session.setMode("ace/mode/javascript");
+            
+            // وضع كود افتراضي أولي
+            editor.setValue(snippetsData.js[0].code, -1);
+            document.getElementById('outputConsole').innerText = "المختبر جاهز لاستقبال وتجربة أكوادك...";
+
+            // بناء قائمة الأكواد للغة الافتراضية
+            loadSnippets('js');
+
+            // التحكم في تبديل اللغات
+            document.querySelectorAll('.repo-tabs .tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.repo-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentLanguage = this.getAttribute('data-lang');
+                    switchLanguage(currentLanguage);
+                });
+            });
+
+            // حدث زر التشغيل
+            document.getElementById('runCodeBtn').addEventListener('click', executeCode);
+        });
+
+        // دالة تبديل لغة المحرر والمكتبة
+        function switchLanguage(lang) {
+            const badge = document.getElementById('langBadge');
+            if (lang === 'js') {
+                editor.session.setMode("ace/mode/javascript");
+                badge.innerHTML = `<i class="fab fa-js-square" style="color:#f7df1e;"></i> بيئة عمل JavaScript`;
+            } else {
+                editor.session.setMode("ace/mode/python");
+                badge.innerHTML = `<i class="fab fa-python" style="color:#3776ab;"></i> بيئة عمل Python`;
+            }
+            loadSnippets(lang);
+            // تحميل أول كود جاهز للغة المختارة تلقائياً
+            editor.setValue(snippetsData[lang][0].code, -1);
+            document.getElementById('outputConsole').innerText = "تم تبديل البيئة التكنولوجية بنجاح.";
+        }
+
+        // دالة تعبئة مستودع الأكواد الجاهزة بالكامل
+        function loadSnippets(lang) {
+            const container = document.getElementById('snippetsContainer');
+            container.innerHTML = '';
+
+            snippetsData[lang].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'snippet-item';
+                div.innerHTML = `
+                    <h4>${item.title}</h4>
+                    <p>${item.desc}</p>
+                `;
+                div.addEventListener('click', () => {
+                    editor.setValue(item.code, -1);
+                    document.getElementById('outputConsole').innerText = "تم استدعاء الكود للمحرر بنجاح، اضغط (تشغيل الكود) لرؤية النتيجة.";
+                });
+                container.appendChild(div);
+            });
+        }
+
+        // دالة تشغيل الأكواد واستعراض المخرجات داخل الكونسول المصمم
+        function executeCode() {
+            const consoleBox = document.getElementById('outputConsole');
+            consoleBox.innerHTML = ""; // تفريغ النتائج السابقة
+            const userCode = editor.getValue();
+
+            if (currentLanguage === 'js') {
+                // إعادة توجيه الكونسول الافتراضي الخاص بـ JavaScript لعرض النتيجة بالصفحة
+                const originalLog = console.log;
+                console.log = function(...args) {
+                    consoleBox.innerHTML += args.join(' ') + '\n';
+                };
+
+                try {
+                    // تشغيل كود جافا سكريبت بشكل آمن ومباشر
+                    new Function(userCode)();
+                    if(consoleBox.innerHTML === "") {
+                        consoleBox.innerHTML = "تم التنفيذ بنجاح (لا توجد مخرجات للطباعة، استخدم console.log للطباعة).";
+                    }
+                } catch (err) {
+                    consoleBox.innerHTML = `<span class="error-text">خطأ برمي في الأكواد:\n${err.message}</span>`;
+                }
+                
+                // استعادة الكونسول الأصلي
+                console.log = originalLog;
+
+            } else if (currentLanguage === 'py') {
+                // تشغيل لغة بايثون داخل المتصفح بالاعتماد على محرك Brython المفتوح المصدر
+                try {
+                    // تجهيز بيئة بريثون ومحاكاة دالة المخرجات المخصصة
+                    window.__brython_output__ = "";
+                    
+                    // تحويل وتجهيز سكريبت بايثون المكتوب عبر المحرر وتمريره للمحرك المفتوح
+                    let runScript = document.getElementById('brython_runner');
+                    if(runScript) runScript.remove();
+                    
+                    runScript = document.createElement('script');
+                    runScript.type = 'text/python';
+                    runScript.id = 'brython_runner';
+                    
+                    // إعادة توجيه الـ print في بايثون لعرضها في الكونسول الخاص بالمنصة
+                    runScript.textContent = `
+import sys
+from browser import document
+
+class ConsoleWriter:
+    def write(self, data):
+        document['outputConsole'].text += str(data)
+    def flush(self):
+        pass
+
+sys.stdout = ConsoleWriter()
+sys.stderr = ConsoleWriter()
+
+${userCode}
+`;
+                    document.body.appendChild(runScript);
+                    
+                    // تشغيل المحرك الفوري لبايثون
+                    brython({debug: 1, ids: ['brython_runner']});
+                    
+                } catch (err) {
+                    consoleBox.innerHTML = `<span class="error-text">خطأ في تنفيذ خوارزمية بايثون:\n${err.message}</span>`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
