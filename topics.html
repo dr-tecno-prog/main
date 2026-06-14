@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الموضوعات البرمجية | منصة دكتور تكنو</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd; /* أزرق تقني */
+            --secondary-color: #6f42c1; /* بنفسجي ذكاء اصطناعي */
+            --dark-bg: #0f172a; /* خلفية داكنة عصرية */
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #ffffff;
+            --accent-color: #00f2fe; /* لون نيون للتفاعل */
+            --whatsapp-color: #25d366; 
+            --neon-pink: #ff007f; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            padding-top: 80px; /* لمراعاة الهيدر الثابت */
+        }
+
+        /* --- الهيدر وبار التنقل --- */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 22px;
+            font-weight: 900;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-light);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .btn-login {
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            color: var(--dark-bg) !important;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+            .nav-links a {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+            body { padding-top: 130px; }
+        }
+
+        /* --- عنوان الصفحة الرئيسي --- */
+        .page-title-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e1b4b 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 3px solid var(--neon-pink);
+        }
+
+        .page-title-section h1 {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .page-title-section h1 span {
+            color: var(--accent-color);
+        }
+
+        /* --- حاوية العرض المتطورة (Sidebar + Content) --- */
+        .interactive-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+            min-height: 550px;
+        }
+
+        /* قائمة أسماء الموضوعات */
+        .topics-sidebar {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 620px;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--dark-bg);
+            padding-bottom: 12px;
+            border-bottom: 2px dashed #e2e8f0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topic-list-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-dark);
+            transition: all 0.25s ease;
+            text-align: right;
+        }
+
+        .topic-list-item i {
+            font-size: 16px;
+            color: #94a3b8;
+            transition: color 0.25s;
+            width: 20px;
+            text-align: center;
+        }
+
+        .topic-list-item:hover {
+            background: #f1f5f9;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .topic-list-item:hover i {
+            color: var(--primary-color);
+        }
+
+        /* الحالة النشطة للموضوع المختار */
+        .topic-list-item.active {
+            background: linear-gradient(45deg, var(--dark-bg), #1e293b);
+            color: var(--accent-color);
+            border-color: var(--dark-bg);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        }
+
+        .topic-list-item.active i {
+            color: var(--accent-color);
+        }
+
+        /* منطقة عرض المحتوى */
+        .content-display-pane {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .display-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e1b4b 100%);
+            padding: 35px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 4px solid var(--secondary-color);
+        }
+
+        .display-icon-box {
+            width: 65px;
+            height: 65px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--accent-color);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+        }
+
+        .display-header h2 {
+            font-size: clamp(20px, 3vw, 26px);
+            font-weight: 900;
+        }
+
+        .display-body {
+            padding: 40px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .display-text {
+            color: #334155;
+            font-size: 17px;
+            line-height: 2;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .display-meta {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .display-badge {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(111, 66, 193, 0.2);
+        }
+
+        /* تأثير الحركة عند الانتقال بين الموضوعات */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* التوافق مع الشاشات الصغيرة */
+        @media (max-width: 850px) {
+            .interactive-container {
+                grid-template-columns: 1fr;
+            }
+            .topics-sidebar {
+                max-height: 250px;
+            }
+            .display-header {
+                padding: 25px;
+            }
+            .display-body {
+                padding: 25px;
+            }
+        }
+
+        /* --- شريط التواصل السريع والفوتر --- */
+        .sticky-contact-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sticky-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .sticky-btn.wa { background-color: var(--whatsapp-color); }
+        .sticky-btn.phone { background-color: var(--primary-color); }
+        .sticky-btn:hover { transform: scale(1.1); }
+
+        footer {
+            background: var(--dark-bg);
+            color: #cbd5e1;
+            padding: 40px 20px 20px 20px;
+            border-top: 4px solid var(--primary-color);
+            margin-top: 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            text-align: center;
+        }
+
+        .footer-whatsapp-display {
+            font-size: clamp(18px, 4vw, 22px);
+            font-weight: 900;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .footer-whatsapp-display:hover {
+            color: var(--whatsapp-color);
+            border-color: var(--whatsapp-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: #1e293b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 22px;
+            transition: all 0.3s;
+            border: 1px solid #334155;
+        }
+
+        .social-icons a.fb-ico:hover { background-color: #1877f2; }
+        .social-icons a.wa-ico:hover { background-color: var(--whatsapp-color); }
+        .social-icons a.phone-ico:hover { background-color: var(--primary-color); }
+
+        .footer-credits {
+            font-size: 14px;
+            border-top: 1px solid #334155;
+            width: 100%;
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-contact-bar">
+        <a href="https://wa.me/201098847174" target="_blank" class="sticky-btn wa" title="تواصل عبر الواتساب"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:01098847174" class="sticky-btn phone" title="اتصل بنا"><i class="fas fa-phone-alt"></i></a>
+    </div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="pic/logo.jpg" alt="شعار دكتور تكنو">
+                منصة دكتور <span>تكنو</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="#" class="active">موضوعات برمجية</a></li>
+                <li><a href="library.html">المكتبة العامة</a></li>
+                <li><a href="news.html">الأخبار والاشعارات</a></li>
+                <li><a href="index.html#registration-section" style="color: var(--accent-color);">سجل الآن</a></li>
+                <li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> دخول الطلاب</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="page-title-section">
+        <h1>الموضوعات <span>البرمجية العامة</span></h1>
+    </section>
+
+    <main class="interactive-container">
+        
+        <aside class="topics-sidebar" id="sidebarMenu">
+            <div class="sidebar-title">
+                <i class="fas fa-list-ul" style="color: var(--primary-color);"></i>
+                قائمة الموضوعات المتاحة
+            </div>
+            </aside>
+
+        <section class="content-display-pane" id="contentPane">
+            </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <a href="https://wa.me/201098847174" target="_blank" class="footer-whatsapp-display">
+                <i class="fab fa-whatsapp" style="color: var(--whatsapp-color);"></i> واتساب مباشر: 01098847174
+            </a>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/groups/1564587198372073" target="_blank" class="fb-ico" title="مجموعة الفيسبوك"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/201098847174" target="_blank" class="wa-ico" title="تواصل واتساب"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:01098847174" class="phone-ico" title="اتصال هاتفي"><i class="fas fa-phone-alt"></i></a>
+            </div>
+            <div class="footer-credits">
+                <p>جميع الحقوق محفوظة © ٢٠٢٦ لمنصة دكتور تكنو | م. خالد شعبان</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // مصفوفة البيانات الأساسية للموضوعات العشرة
+        const initialTopics = [
+            {
+                id: 1,
+                title: "ما هي البرمجة؟",
+                icon: "fa-code",
+                content: "البرمجة هي لغة التفاهم بين الإنسان والآلة. هي ببساطة عملية كتابة تعليمات وأوامر محددة ومفصلة يفهمها الحاسوب، ليقوم بتنفيذ مهام معينة أو حل مشكلة معقدة، وتحويل الأفكار الابتكارية إلى برامج وتطبيقات نراها ونستخدمها يومياً.",
+                tag: "أساسيات تكنولوجية"
+            },
+            {
+                id: 2,
+                title: "أنواع لغات البرمجة",
+                icon: "fa-layer-group",
+                content: "تتنوع لغات البرمجة بحسب الهدف منها؛ فهناك لغات عالية المستوى (High-Level) قريبة من فهم البشر مثل Python و Java، ولغات منخفضة المستوى (Low-Level) قريبة من فهم الآلة مثل لغة التجميع (Assembly). وتصنف أيضاً حسب الاستخدام إلى لغات ويب، تطبيقات، وقواعد بيانات.",
+                tag: "تصنيفات برمجية"
+            },
+            {
+                id: 3,
+                title: "استخدامات لغات البرمجة",
+                icon: "fa-laptop-house",
+                content: "تُبنى كل التقنيات حولنا باستخدام البرمجة؛ بدءاً من تصميم المواقع وتطبيقات الهواتف الذكية (Android & iOS)، مراراً بتطوير ألعاب الفيديو ثلاثية الأبعاد، وصولاً إلى تسيير المركبات الفضائية، وتحليل البيانات الضخمة، والتحكم في أنظمة الحماية الرقمية.",
+                tag: "تطبيقات عملية"
+            },
+            {
+                id: 4,
+                title: "ما هي لغة الآلة (Machine Language)؟",
+                icon: "fa-microchip",
+                content: "لغة الآلة هي اللغة الأصلية والوحيدة التي يفهمها المعالج (CPU) مباشرة دون وسيط. وتتكون بالكامل من النظام الثنائي (Binary Code) المتمثل في رقمين فقط هما (0 و 1)، حيث يمثل كل رقم حالة كهربائية معينة (تشغيل أو إيقاف) داخل الدوائر الإلكترونية.",
+                tag: "بنية الحاسب"
+            },
+            {
+                id: 5,
+                title: "كيف يفكر الحاسب الآلي؟",
+                icon: "fa-brain",
+                content: "الحاسوب لا يفكر مثل البشر، بل ينفذ بسرعة فائقة سلسلة من العمليات المنطقية والحسابية المبنية على الخوارزميات (Algorithms). يستقبل المدخلات (Inputs)، يعالجها بالاعتماد على شروط محددة (مقارنات نعم أو لا)، ثم يستخرج المخرجات (Outputs) بدقة متناهية.",
+                tag: "تفكير منطقي"
+            },
+            {
+                id: 6,
+                title: "كيف يعمل الذكاء الاصطناعي (AI)؟",
+                icon: "fa-robot",
+                content: "يعتمد الذكاء الاصطناعي على محاكاة القدرات العقلية البشرية عبر تزويد الآلة بآلاف البيانات الضخمة، ثم تدريبها باستخدام خوارزميات 'تعلم الآلة' (Machine Learning) لتصبح قادرة على استنتاج الأنماط، اتخاذ القرارات، والتنبؤ بالحلول تلقائياً دون تدخل بشري دائم.",
+                tag: "تقنيات حديثة"
+            },
+            {
+                id: 7,
+                title: "مفهوم الخوارزميات (Algorithms)",
+                icon: "fa-calculator",
+                content: "الخوارزمية هي القلب النابض لأي برنامج؛ وهي عبارة عن مجموعة من الخطوات الرياضية والمنطقية المتسلسلة والمحددة بدقة لحل مشكلة معينة. سميت بهذا الاسم نسبة للعالم المسلم الخوارزمي، ومن دونها لا يمكن كتابة كود برمي ناجح.",
+                tag: "أساسيات التفكير"
+            },
+            {
+                id: 8,
+                title: "مستقبل الذكاء الاصطناعي والوظائف",
+                icon: "fa-chart-line",
+                content: "الذكاء الاصطناعي لا يلغي الوظائف بل يطورها؛ حيث يسهم في أتمتة المهام الروتينية الشاقة، مما يفتح آفاقاً جديدة لوظائف المستقبل مثل مهندسي البرمجيات الذكية، محللي البيانات، وخبراء الأخلاقيات والأمن السيبراني المرتبط بـ الـ AI.",
+                tag: "رؤية مستقبلية"
+            },
+            {
+                id: 9,
+                title: "أهمية تعلم البرمجة لطلاب الثانوية",
+                icon: "fa-user-astronaut",
+                content: "تعلم البرمجة في سن مبكرة ينمي مهارات التفكير النقدي وحل المشكلات (Problem Solving) بطرق مبتكرة. كما يمنح طالب البكالوريا ميزة تنافسية كبرى تؤهله لريادة التخصصات الجامعية المستقبلية والدخول بقوة لسوق العمل الرقمي العالمي.",
+                tag: "مجتمع الطلاب"
+            },
+            {
+                id: 10,
+                title: "خطوتك الأولى: من أين تبدأ؟",
+                icon: "fa-rocket",
+                content: "البداية لا تتطلب عبقرية، بل شغفاً واستمراراً. ابدأ بفهم المنطق البرمجي، ثم تعلم لغة سهلة وقوية مثل Python. من خلال منصة دكتور تكنو، نسير معك خطوة بخطوة من الصفر حتى كتابة أول برنامج متكامل لك وتطبيقه عملياً في مجالات الذكاء الاصطناعي.",
+                tag: "خريطة الطريق"
+            }
+        ];
+
+        // دالة لعرض تفاصيل موضوع محدد في لوحة العرض
+        function displayTopicContent(topic) {
+            const pane = document.getElementById('contentPane');
+            pane.innerHTML = `
+                <div class="display-header">
+                    <div class="display-icon-box">
+                        <i class="fas ${topic.icon}"></i>
+                    </div>
+                    <div>
+                        <h2>${topic.title}</h2>
+                    </div>
+                </div>
+                <div class="display-body">
+                    <p class="display-text">${topic.content}</p>
+                    <div class="display-meta">
+                        <span class="display-badge">${topic.tag}</span>
+                        <span style="font-size: 14px; color: #94a3b8; font-weight:700;">منصة دكتور تكنو التعليمية</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // دالة بناء وتوليد القائمة والتحكم بالتفاعل
+        function initInteractiveLayout(topics) {
+            const sidebar = document.getElementById('sidebarMenu');
+            
+            // إزالة أي عناصر سابقة عدا العنوان الرئيسي للشريط
+            const titleElement = sidebar.querySelector('.sidebar-title');
+            sidebar.innerHTML = '';
+            sidebar.appendChild(titleElement);
+
+            topics.forEach((topic, index) => {
+                const item = document.createElement('div');
+                item.className = `topic-list-item ${index === 0 ? 'active' : ''}`;
+                item.innerHTML = `<i class="fas ${topic.icon}"></i> ${topic.title}`;
+                
+                // حدث الضغط على اسم الموضوع
+                item.addEventListener('click', () => {
+                    // إزالة النشاط من العنصر السابق وتفعيله في العنصر الجديد
+                    document.querySelectorAll('.topic-list-item').forEach(el => el.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // عرض المحتوى المخصص للموضوع المختار
+                    displayTopicContent(topic);
+                    
+                    // التمرير التلقائي لأعلى منطقة المحتوى في الشاشات الصغيرة
+                    if(window.innerWidth <= 850) {
+                        document.getElementById('contentPane').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+
+                sidebar.appendChild(item);
+            });
+
+            // عرض الموضوع الأول بشكل افتراضي فور تحميل الصفحة
+            if(topics.length > 0) {
+                displayTopicContent(topics[0]);
+            }
+        }
+
+        // تشغيل البناء البرمجي فور تحميل عناصر الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            initInteractiveLayout(initialTopics);
+
+            // 🛠️ ملاحظة للمستقبل للربط بـ Google Sheet API:
+            /*
+            fetch('رابط_الـ_API_الخاص_بـ_جوجل_شيت')
+                .then(response => response.json())
+                .then(data => {
+                    initInteractiveLayout(data); // ستقوم ببناء القائمة والمحتوى ديناميكياً من الشيت مباشرة
+                })
+                .catch(err => console.error("حدث خطأ في جلب بيانات الشيت: ", err));
+            */
+        });
+    </script>
+</body>
+</html>
